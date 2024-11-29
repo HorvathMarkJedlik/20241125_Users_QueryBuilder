@@ -33,13 +33,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|string|unique:table,column,except,id',
+            'password' => 'required|string',
+        ]);
+
        if (DB::table('users')->insert([
             'name' => $request -> username,
             'email' => $request -> email,
             'password' => $request -> password,
 
        ])) {
-            return redirect()->route('/users');
+            // return redirect()->route('/users');
+            return redirect()->route('users.index')->with('success', 'User created successfully');
 
        }
     }
@@ -51,6 +59,9 @@ class UserController extends Controller
     {
         //SELECT * FROM users WHERE id = $id;
         $user = DB::table('users')->where('id', '=', $id)->first();
+        if (!$user){
+            return redirect()->route('users.index')->with('error', 'User not found');
+        }
         return view('users.show', ['user' => $user]);
     }
 

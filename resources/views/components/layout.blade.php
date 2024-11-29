@@ -14,6 +14,15 @@
     <div class="container">
         <x-nav></x-nav>
 
+        @session('error')
+            <div class="alert alert-danger">{{session('error')}}</div>
+        @endsession
+
+
+        @session('success')
+            <div class="alert alert-success">{{session('success')}}</div>
+        @endsession
+
         {{$slot}}
     </div>
 

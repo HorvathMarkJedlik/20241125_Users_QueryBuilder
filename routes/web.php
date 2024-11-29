@@ -11,4 +11,5 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/users{user}/edit', [UserController::class, 'edit']);
 // Route::put('/users', [UserController::class, 'update']);
 
+Route::redirect('/', '/users');
 Route::resource('/users', UserController::class);
