@@ -4,17 +4,26 @@
         @csrf
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input for="text" class="form-control" id="username" name="username"></input>
+            <input for="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{old('username')}}">
+            @error('username')
+                <div class="invalid-feedback">{{$message}}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input for="email" class="form-control" id="email" name="email"></input>
+            <input type="email" for="email" class="form-control  @error('email') is-invalid @enderror" id="email" name="email" value="{{old('email')}}">
+            @error('email')
+                <div class="invalid-feedback">{{$message}}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password">
+            <input type="password" class="form-control  @error('password') is-invalid @enderror" name="password">
+            @error('password')
+                <div class="invalid-feedback">{{$message}}</div>
+            @enderror
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>

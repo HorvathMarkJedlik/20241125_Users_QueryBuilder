@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,14 +32,16 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
 
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|string|unique:table,column,except,id',
-            'password' => 'required|string',
-        ]);
+        // $request->validate([
+        //     'username' => 'required|string|min:4|max:255',
+        //     'email' => 'required|email|string|unique:users,email',
+        //     'password' => 'required|string',
+        // ], [
+        //     'required' => 'A(z):attribute mező kitöltése kötelező'
+        // ],);
 
        if (DB::table('users')->insert([
             'name' => $request -> username,
