@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 use function Laravel\Prompts\table;
 
@@ -46,7 +47,7 @@ class UserController extends Controller
        if (DB::table('users')->insert([
             'name' => $request -> username,
             'email' => $request -> email,
-            'password' => $request -> password,
+            'password' => Hash::make($request -> password),
 
        ])) {
             // return redirect()->route('/users');
