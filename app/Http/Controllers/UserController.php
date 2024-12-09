@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+use function Laravel\Prompts\error;
 use function Laravel\Prompts\table;
 
 class UserController extends Controller
@@ -48,6 +49,7 @@ class UserController extends Controller
             'name' => $request -> username,
             'email' => $request -> email,
             'password' => Hash::make($request -> password),
+            'created_at' => now(),
 
        ])) {
             // return redirect()->route('/users');
@@ -74,7 +76,11 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = DB::table('users')->where('id', '=', $id)->first();
+        if(!$user){
+            return redirect()->route('users.index')->with('error', 'user not found');
+        }
+        return view('users.edit');
     }
 
     /**
@@ -90,6 +96,10 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $rows = DB::table('users')->delete($id);
+        if ($rows == 0){
+            return redirect()->route('users.index')->with('error', 'User not found');
+        }
+        return redirect()->route('users.index')->with('Success', 'User deleted successfully');
     }
 }
