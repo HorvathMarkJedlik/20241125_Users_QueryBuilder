@@ -19,9 +19,17 @@
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control  @error('password') is-invalid @enderror" name="password">
             @error('password')
+                <div class="invalid-feedback">{{$message}}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="passwordconfirmation" class="form-label">Password confirmation</label>
+            <input type="password" class="form-control  @error('password_confirmation') is-invalid @enderror" name="password_confirmation">
+            @error('password_confirmation')
                 <div class="invalid-feedback">{{$message}}</div>
             @enderror
         </div>
